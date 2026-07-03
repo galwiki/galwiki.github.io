@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galgame Wiki</title>
+    <style>
+        /* ===== 基础重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0b0b0e;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        /* ===== 背景：动态渐变 + 光晕 ===== */
+        .bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 20% 80%, rgba(88, 60, 180, 0.25) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 80% 20%, rgba(30, 100, 200, 0.18) 0%, transparent 65%),
+                radial-gradient(ellipse 40% 50% at 50% 50%, rgba(120, 40, 160, 0.10) 0%, transparent 70%),
+                #0b0b0e;
+        }
+
+        /* ===== 浮动粒子（纯CSS） ===== */
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            animation: float linear infinite;
+        }
+
+        .particle:nth-child(1) {
+            width: 4px;
+            height: 4px;
+            left: 10%;
+            top: 20%;
+            animation-duration: 28s;
+            animation-delay: 0s;
+        }
+        .particle:nth-child(2) {
+            width: 6px;
+            height: 6px;
+            left: 25%;
+            top: 70%;
+            animation-duration: 22s;
+            animation-delay: 2s;
+        }
+        .particle:nth-child(3) {
+            width: 3px;
+            height: 3px;
+            left: 55%;
+            top: 15%;
+            animation-duration: 32s;
+            animation-delay: 4s;
+        }
+        .particle:nth-child(4) {
+            width: 5px;
+            height: 5px;
+            left: 75%;
+            top: 60%;
+            animation-duration: 26s;
+            animation-delay: 1s;
+        }
+        .particle:nth-child(5) {
+            width: 4px;
+            height: 4px;
+            left: 90%;
+            top: 30%;
+            animation-duration: 30s;
+            animation-delay: 3s;
+        }
+        .particle:nth-child(6) {
+            width: 7px;
+            height: 7px;
+            left: 40%;
+            top: 85%;
+            animation-duration: 24s;
+            animation-delay: 5s;
+        }
+        .particle:nth-child(7) {
+            width: 3px;
+            height: 3px;
+            left: 5%;
+            top: 45%;
+            animation-duration: 35s;
+            animation-delay: 7s;
+        }
+        .particle:nth-child(8) {
+            width: 5px;
+            height: 5px;
+            left: 68%;
+            top: 90%;
+            animation-duration: 20s;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.2;
+            }
+            25% {
+                transform: translateY(-60px) translateX(30px) scale(1.2);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-120px) translateX(-20px) scale(0.8);
+                opacity: 0.3;
+            }
+            75% {
+                transform: translateY(-60px) translateX(40px) scale(1.1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.2;
+            }
+        }
+
+        /* ===== 主容器 ===== */
+        .hero {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            width: 92%;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* ===== 徽标 ===== */
+        .logo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            padding: 0.4rem 1.2rem 0.4rem 0.8rem;
+            margin-bottom: 2.2rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+            color: rgba(255, 255, 255, 0.5);
+            user-select: none;
+        }
+
+        .logo-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #6c8cff;
+            display: inline-block;
+            animation: pulse-dot 2.8s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scale(0.9);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* ===== 主标题 ===== */
+        .title {
+            font-size: clamp(2.8rem, 10vw, 6rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 0.4rem;
+            background: linear-gradient(135deg, #ffffff 30%, #a8b8ff 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title .highlight {
+            background: linear-gradient(135deg, #6c8cff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== 副标题 / 关键词行 ===== */
+        .keywords {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem 1.2rem;
+            margin: 0.8rem 0 1.8rem 0;
+            font-size: clamp(0.8rem, 1.2vw, 1.05rem);
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 0.6px;
+        }
+
+        .keywords span {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-weight: 400;
+        }
+
+        .keywords .accent {
+            color: rgba(150, 180, 255, 0.6);
+            border-color: rgba(100, 140, 255, 0.15);
+        }
+
+        /* ===== 描述 ===== */
+        .desc {
+            max-width: 640px;
+            font-size: clamp(1rem, 1.3vw, 1.2rem);
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 2.8rem;
+            font-weight: 400;
+        }
+
+        .desc strong {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        /* ===== 按钮组 ===== */
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3.2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.9rem 2.2rem;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            letter-spacing: 0.2px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #5b7cfa, #8b6cf0);
+            color: #fff;
+            box-shadow: 0 8px 32px rgba(90, 120, 255, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 44px rgba(90, 120, 255, 0.35);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.20);
+            transform: translateY(-3px);
+        }
+
+        .btn .icon {
+            font-size: 1.1rem;
+            opacity: 0.7;
+        }
+
+        /* ===== 底部链接 ===== */
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem 2.4rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.2);
+            margin-top: 0.6rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.25);
+            text-decoration: none;
+            transition: color 0.25s;
+            letter-spacing: 0.2px;
+        }
+
+        .footer-links a:hover {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-links .divider {
+            opacity: 0.2;
+            user-select: none;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 600px) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .logo-badge {
+                font-size: 0.7rem;
+                padding: 0.3rem 1rem 0.3rem 0.6rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1.6rem;
+                font-size: 0.9rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .actions {
+                width: 100%;
+                gap: 0.7rem;
+            }
+
+            .footer-links {
+                gap: 0.6rem 1.2rem;
+                font-size: 0.75rem;
+            }
+
+            .keywords {
+                gap: 0.4rem 0.8rem;
+                font-size: 0.7rem;
+            }
+
+            .keywords span {
+                padding: 0.15rem 0.7rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .title {
+                font-size: 2.4rem;
+            }
+            .desc {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== 背景 ===== -->
+    <div class="bg"></div>
+
+    <!-- ===== 粒子 ===== -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- ===== 主内容 ===== -->
+    <main class="hero">
+
+        <!-- 徽标 -->
+        <div class="logo-badge">
+            <span class="dot"></span>
+            GALGAME WIKI &nbsp;·&nbsp; 知识库
+        </div>
+
+        <!-- 标题 -->
+        <h1 class="title">
+            Galgame<br />
+            <span class="highlight">Wiki</span>
+        </h1>
+
+        <!-- 关键词 -->
+        <div class="keywords">
+            <span class="accent"># Galgame</span>
+            <span class="accent"># 视觉小说</span>
+            <span># 知识库</span>
+            <span># 开源</span>
+            <span># GalWiki</span>
+        </div>
+
+        <!-- 描述 -->
+        <p class="desc">
+            <strong>Galgame Wiki</strong> 是一个由爱好者发起的非营利性学术资料库，<br />
+            专注于 Galgame 与视觉小说领域的知识整理、归档与文化研究。<br />
+            完全免费 · 开放编辑 · 无广告
+        </p>
+
+        <!-- 按钮 -->
+        <div class="actions">
+            <a href="https://www.galgame.it/wiki" class="btn btn-primary">
+                进入 Wiki
+                <span class="icon">→</span>
+            </a>
+            <a href="https://journal.galgame.it" class="btn btn-secondary">
+                学术期刊
+                <span class="icon">📄</span>
+            </a>
+            <a href="https://github.com/sombermengling/galgamewiki" class="btn btn-secondary">
+                GitHub
+                <span class="icon">⌨️</span>
+            </a>
+        </div>
+
+        <!-- 底部链接 -->
+        <div class="footer-links">
+            <a href="https://www.galgame.it/wiki">百科</a>
+            <span class="divider">·</span>
+            <a href="https://journal.galgame.it">《Galgame研究》</a>
+            <span class="divider">·</span>
+            <a href="https://github.com/sombermengling/galgamewiki">开源仓库</a>
+            <span class="divider">·</span>
+            <a href="mailto:galgamewiki@galgame.it">联系</a>
+        </div>
+
+    </main>
+
+</body>
+</html>
