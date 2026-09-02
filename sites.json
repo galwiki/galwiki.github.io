@@ -1,0 +1,12 @@
+[
+  {"slug":"galgame-wiki","name":"Galgame Wiki","category":"百科资料","description":"中文 Galgame 资料库，汇集作品、角色、制作人员与文化条目。","url":"https://galgame.it","tags":["百科","资料库","中文"],"score":9.1,"updated":"2026-01-15","note":"第三方站点，内容与服务以其公开页面为准。"},
+  {"slug":"vndb","name":"VNDB","category":"百科资料","description":"全球视觉小说资料库，提供作品标签、发行信息、关系图谱与评分。","url":"https://vndb.org","tags":["数据库","视觉小说","国际"],"score":9.1,"updated":"2026-01-28","note":"第三方站点，部分内容为英文。"},
+  {"slug":"cngal","name":"CnGal资料站","category":"百科资料","description":"专注中文 Galgame/AVG 的作品介绍、攻略、评测与玩家感想。","url":"https://www.cngal.org","tags":["国产Galgame","攻略","评测"],"score":8.5,"updated":"2026-03-01","note":"非营利资料性质站点。"},
+  {"slug":"bangumi","name":"Bangumi 番组计划","category":"社区讨论","description":"面向 ACG 爱好者的作品记录、评论、排行榜与同好交流社区。","url":"https://bangumi.tv","tags":["社区","评论","ACG"],"score":9.4,"updated":"2026-02-20","note":"第三方社区，需遵守其社区规则。"},
+  {"slug":"ttloli","name":"忧郁的弟弟","category":"下载资源站","description":"老牌 Galgame 资源索引站，提供游戏本体、补丁与汉化信息入口。","url":"https://www.ttloli.com/","tags":["下载","补丁","汉化"],"score":9.6,"updated":"2026-02-10","note":"第三方下载站；请自行核验版权、文件安全与当地法律。"},
+  {"slug":"chuyin","name":"初音的青葱","category":"下载资源站","description":"Galgame 资源更新与作品信息整理站点。","url":"https://www.chuyin.com","tags":["下载","资源","更新"],"score":7.8,"updated":"2026-03-12","note":"第三方下载站；访问和下载前请注意安全与版权。"},
+  {"slug":"galgame-world","name":"Galgame World","category":"下载资源站","description":"面向移动端用户的 Galgame 资源与作品信息站点。","url":"https://acgn.games/","tags":["移动端","下载","资源"],"score":8.6,"updated":"2026-03-12","note":"第三方站点，信息仅供参考。"},
+  {"slug":"galgame-journal","name":"《Galgame研究》期刊","category":"资讯评测","description":"关注 Galgame 社会学、文化研究与学术共享的中文期刊。","url":"https://journal.galgame.it","tags":["研究","期刊","文化"],"score":8.1,"updated":"2026-03-12","note":"GalgameWiki 旗下研究项目。"},
+  {"slug":"steam-visual-novels","name":"Steam 视觉小说","category":"官方/发行平台","description":"Steam 平台的视觉小说与 Galgame 分类入口，支持正版购买与更新。","url":"https://store.steampowered.com/tags/en/Visual%20Novel/","tags":["正版","发行平台","Steam"],"score":8.8,"updated":"2026-03-12","note":"官方发行平台，具体地区可见性以平台为准。"},
+  {"slug":"itch-visual-novels","name":"itch.io Visual Novels","category":"官方/发行平台","description":"独立开发者发布视觉小说和实验性叙事游戏的平台。","url":"https://itch.io/games/genre-visual-novel","tags":["独立游戏","发行平台","英文"],"score":8.2,"updated":"2026-03-12","note":"第三方发行平台，购买前请查看开发者信息。"}
+]
